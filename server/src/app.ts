@@ -7,6 +7,17 @@ export class App {
   private apiPath: string;
   private staticPath: string;
 
+  /**
+  * Express Server
+  * @param port Port Application listens on
+  * @param middlewares Array of middleware to be applied to app 
+  * @param routes Array of express.Router objects for application routes
+  * @param apiPath Base path for this api that will be prepended to all routes
+  * @param staticPath path to folder for public files express will make available
+  *
+  * @beta
+  */
+
   constructor(
     port: string,
     middlewares: any[],
@@ -24,11 +35,20 @@ export class App {
     this.assetsConfig(this.staticPath);
   }
 
+  /**
+  * @param middlewares array to be loaded into express app
+  */
+
   private middlewaresConfig(middlewares: any[]): void {
     middlewares.forEach((middleware) => {
       this.app.use(middleware);
     });
   }
+
+  /**
+  * Attaches route objects to app, appending routes to `apiPath`
+  * @param routes Array of router objects to be attached to the app
+  */
 
   private routesConfig(routes: express.Router[]): void {
     routes.forEach((route) => {
@@ -36,13 +56,26 @@ export class App {
     });
   }
 
+  /**
+  * Enable express to serve up static assets
+  */
+
   private assetsConfig(path: string): void {
     this.app.use(express.static(path));
   }
 
+  /**
+  * @param middleware to be loaded into express app
+  */
+
   public addMiddleware(middleware: any): void {
     this.app.use(middleware);
   }
+
+  /**
+  * Creates a connection to a MongoDB instance using mongoose
+  * @param uri MongoDB connection string
+  */
 
   public connectMongoDB(uri: string): void {
     const connect = () => {
@@ -61,6 +94,10 @@ export class App {
 
     mongoose.connection.on('disconnected', connect);
   }
+
+  /**
+  * Start the Express app
+  */
 
   public listen(): void {
     this.app.listen(this.port, (): void => {
