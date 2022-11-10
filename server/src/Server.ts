@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 import path from 'path';
-import { App } from './app';
-import { middlewares } from './middlewares';
-import shorturlRouter from './api/shorturl/shorturl.router'
+import { App } from './App';
+import { middlewares } from './Middlewares';
+import shorturlRouter from './api/shorturl/Shorturl.Router'
 
 dotenv.config();
 const PORT = process.env.PORT || '8080';
