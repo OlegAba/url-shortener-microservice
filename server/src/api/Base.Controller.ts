@@ -42,7 +42,8 @@ export class BaseController {
    */
 
   create(res: Response, document: any, populate?: IPopulate, errMsg = 'Failed to create') {
-    this.model.create<mongoose.Document>(document).then((doc: mongoose.Document) => {
+    this.model.create<mongoose.Document>(document)
+      .then((doc: mongoose.Document) => {
         if (populate) {
             doc.populate(populate)
               .then(populatedDoc => {
