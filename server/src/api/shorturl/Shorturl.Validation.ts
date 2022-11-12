@@ -27,7 +27,7 @@ export function validateID(req: Request, res: Response, next: CallableFunction):
   const id = req.params.id
   const errRes = { error: 'Wrong format' }
 
-  if (id === undefined || typeof(id) !== 'number') {
+  if (id === undefined || typeof(id) !== 'string') {
     res.status(500).json(errRes);
     return
   }

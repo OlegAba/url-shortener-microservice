@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
 
-interface Shorturl {
-  date_created: number;
-  url: string;
-  index: number;
+export interface Shorturl {
+  original_url: string;
+  short_url: string;
 }
 
 export interface ShorturlJSON extends Shorturl {

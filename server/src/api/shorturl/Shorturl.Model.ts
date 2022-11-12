@@ -3,9 +3,8 @@ import mongoose = require('mongoose');
 import { BaseModel } from '../Base.Model';
 
 const ShorturlSchema: Schema = new Schema({
-  date_created: { type: Number },
-  url: { type: String },
-  index: { type: Number }
+  original_url: { type: String },
+  short_url: { type: String }
 });
 
 export class ShorturlModel extends BaseModel {

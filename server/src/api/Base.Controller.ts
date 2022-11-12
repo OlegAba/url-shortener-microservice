@@ -34,6 +34,10 @@ export class BaseController {
    */
 
   errRes(err: any, res: Response, message = 'Sever Error', status = 500) {
+    if (err instanceof Error) {
+      console.log(err);
+    }
+
     res.status(status).json({ error: message });
   }
 
@@ -56,7 +60,8 @@ export class BaseController {
             this.jsonRes(doc, res)
         }
     })
-      .catch(err => { 
+      .catch(err => {
+        console.log(err) 
         this.errRes(err, res, errMsg) 
       });
   }
@@ -75,7 +80,7 @@ export class BaseController {
   }
 
   /**
-   * Returns single doucument of model specified by _id. 
+   * Returns single document of model specified by _id. 
    */
 
   findById(res: Response, documentId: string, populate?: IPopulate, errMsg = `Failed to find document ${documentId}`) {
