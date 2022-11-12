@@ -1,4 +1,4 @@
-import mongoose = require("mongoose");
+import mongoose from "mongoose";
 import { IPopulate } from "./interfaces/IPopulate";
 
 /**
@@ -10,7 +10,7 @@ export class BaseModel {
   public mongooseModel: mongoose.Model<any>;
 
   constructor(mongooseModel: mongoose.Model<any>) {
-    this.mongooseModel = mongooseModel
+    this.mongooseModel = mongooseModel;
   }
 
   public returnNew = { useFindAndModify: false, new: true };

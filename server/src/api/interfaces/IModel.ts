@@ -1,5 +1,5 @@
 import { IPopulate } from "./IPopulate";
-import mongoose = require('mongoose')
+import mongoose from "mongoose";
 
 export interface IModel {
   mongooseModel: mongoose.Model<any>;

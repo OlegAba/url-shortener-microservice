@@ -1,7 +1,7 @@
-import { Response } from 'express'
-import mongoose = require('mongoose')
-import { IModel } from './interfaces/IModel';
-import { IPopulate } from './interfaces/IPopulate';
+import { Response } from "express";
+import mongoose from "mongoose";
+import { IModel } from "./interfaces/IModel";
+import { IPopulate } from "./interfaces/IPopulate";
 
 /**
  * Provides functions to be used with express routes. Serves common CRUD functionality. 
@@ -9,7 +9,7 @@ import { IPopulate } from './interfaces/IPopulate';
 
 export class BaseController {
 
-  public useModReturnNew = { useFindAndModify: false, new: true }
+  public useModReturnNew = { useFindAndModify: false, new: true };
   public model: IModel;
 
   constructor(model: IModel) {
@@ -33,7 +33,7 @@ export class BaseController {
    * @param status custom status code, defaults to 500
    */
 
-  errRes(err: any, res: Response, message = 'Sever Error', status = 500) {
+  errRes(err: any, res: Response, message = "Sever Error", status = 500) {
     if (err instanceof Error) {
       console.log(err);
     }
@@ -45,24 +45,24 @@ export class BaseController {
    * Creates a new document 
    */
 
-  create(res: Response, document: any, populate?: IPopulate, errMsg = 'Failed to create') {
+  create(res: Response, document: any, populate?: IPopulate, errMsg = "Failed to create") {
     this.model.create<mongoose.Document>(document)
       .then((doc: mongoose.Document) => {
         if (populate) {
             doc.populate(populate)
               .then(populatedDoc => {
-                this.jsonRes(populatedDoc, res)
+                this.jsonRes(populatedDoc, res);
               })
               .catch(err => { 
-                this.errRes(err, res, errMsg) 
+                this.errRes(err, res, errMsg);
               });
         } else {
-            this.jsonRes(doc, res)
+            this.jsonRes(doc, res);
         }
-    })
+      })
       .catch(err => {
-        console.log(err) 
-        this.errRes(err, res, errMsg) 
+        console.log(err);
+        this.errRes(err, res, errMsg);
       });
   }
 
@@ -70,12 +70,12 @@ export class BaseController {
    * Returns all documents of model
    */
 
-  find(res: Response, populate?: IPopulate, errMsg = 'Failed to find documents') {
+  find(res: Response, populate?: IPopulate, errMsg = "Failed to find documents") {
     this.model.find(populate)
       .then(doc => { 
-        this.jsonRes(doc, res) 
+        this.jsonRes(doc, res);
       }, err => { 
-        this.errRes(err, res, errMsg) 
+        this.errRes(err, res, errMsg);
       });
   }
 
@@ -86,13 +86,13 @@ export class BaseController {
   findById(res: Response, documentId: string, populate?: IPopulate, errMsg = `Failed to find document ${documentId}`) {
     this.model.findById(documentId, populate)
       .then(doc => { 
-        this.jsonRes(doc, res) 
+        this.jsonRes(doc, res);
       }, err => { 
-        this.errRes(err, res, errMsg) 
+        this.errRes(err, res, errMsg);
       })
-        .catch( err => {
-          this.errRes(err, res, 'Failed to retrieve doc')
-        });
+      .catch( err => {
+        this.errRes(err, res, "Failed to retrieve doc");
+      });
   }
 
   /**
@@ -102,18 +102,18 @@ export class BaseController {
   findOne(res: Response, query: any, populate?: IPopulate, errMsg = `Failed to find document ${query}`) {
     this.model.findOne(query, populate)
       .then(doc => { 
-        this.jsonRes(doc, res) 
+        this.jsonRes(doc, res);
       }, err => { 
-        this.errRes(err, res, errMsg) 
+        this.errRes(err, res, errMsg);
       });
   }
 
   findMany(res: Response, query: any, populate?: IPopulate, errMsg = `Failed to find document ${query}`) {
     this.model.findMany(query, populate)
       .then(doc => { 
-        this.jsonRes(doc, res) 
+        this.jsonRes(doc, res);
       }, err => { 
-        this.errRes(err, res, errMsg) 
+        this.errRes(err, res, errMsg);
       });
   }
 
@@ -124,9 +124,9 @@ export class BaseController {
   updateById(res: Response, documentId: string, document: any, populate?: IPopulate | IPopulate[], errMsg = `Failed to update document ${documentId}`) {
     this.model.updateById(documentId, document, populate)
       .then(doc => { 
-        this.jsonRes(doc, res) 
+        this.jsonRes(doc, res);
       }, err => { 
-        this.errRes(err, res, errMsg)
+        this.errRes(err, res, errMsg);
       });
   }
 
@@ -137,9 +137,9 @@ export class BaseController {
   deleteById(res: Response, documentId: string, errMsg = `Failed to delete document ${documentId}`) {
     this.model.deleteById(documentId)
     .then(doc => { 
-      this.jsonRes(doc, res)
+      this.jsonRes(doc, res);
     }, err => { 
-      this.errRes(err, res, errMsg) 
+      this.errRes(err, res, errMsg);
     });
   }
 }
