@@ -47,7 +47,7 @@ export class ShorturlController extends BaseController {
         return;
       }
 
-      res.redirect(301, 'https://' + doc.original_url)
+      res.redirect(301, doc.original_url)
 
     } catch(err) {
       this.errRes(err, res);
