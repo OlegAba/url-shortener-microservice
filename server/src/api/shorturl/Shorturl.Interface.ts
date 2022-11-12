@@ -6,9 +6,9 @@ export interface Shorturl {
 }
 
 export interface ShorturlJSON extends Shorturl {
-  _id: string
+  _id: string;
 }
 
 export interface ShorturlDB extends Shorturl {
-  _id: mongoose.ObjectId
+  _id: mongoose.ObjectId;
 }

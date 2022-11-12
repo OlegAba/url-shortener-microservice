@@ -25,9 +25,9 @@ export class ShorturlController extends BaseController {
       }
 
       // Create new ShortURL
-      const id = crypto.randomBytes(3).toString('hex');
+      const id: string = crypto.randomBytes(3).toString("hex");
       shorturl.short_url = id;
-      await this.model.create(shorturl)
+      await this.model.create(shorturl);
       this.jsonRes(shorturl, res);
       
     } catch(err) {
@@ -43,11 +43,12 @@ export class ShorturlController extends BaseController {
       
       // URL does not exist
       if (doc === null) {
-        this.errRes(null, res, 'No short URL found for the given input');
+        this.errRes(null, res, "No short URL found for the given input");
         return;
       }
 
-      res.redirect(301, doc.original_url)
+      // Redirect
+      res.redirect(301, "https://" + doc.original_url);
 
     } catch(err) {
       this.errRes(err, res);

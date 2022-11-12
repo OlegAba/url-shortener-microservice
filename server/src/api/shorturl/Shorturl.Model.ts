@@ -1,6 +1,5 @@
-import { Schema } from "mongoose";
-import mongoose = require('mongoose');
-import { BaseModel } from '../Base.Model';
+import mongoose, { Schema } from "mongoose";
+import { BaseModel } from "../Base.Model";
 
 const ShorturlSchema: Schema = new Schema({
   original_url: { type: String },
@@ -10,6 +9,6 @@ const ShorturlSchema: Schema = new Schema({
 export class ShorturlModel extends BaseModel {
 
   constructor() {
-    super(mongoose.model('Shorturl', ShorturlSchema));
+    super(mongoose.model("Shorturl", ShorturlSchema));
   }
 }
