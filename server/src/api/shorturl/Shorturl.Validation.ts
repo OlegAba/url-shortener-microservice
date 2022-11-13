@@ -7,7 +7,7 @@ export function validateURL(req: Request, res: Response, next: CallableFunction)
   const errRes = { error: "invalid url" };
 
   if (url === undefined || url === "") {
-    res.status(400).json(errRes);
+    res.json(errRes);
     return;
   }
 
@@ -17,7 +17,7 @@ export function validateURL(req: Request, res: Response, next: CallableFunction)
     dns.lookup(hostname, (err) => {
       console.log(err)
       if (err) {
-        res.status(400).json(errRes);
+        res.json(errRes);
         return;
       }
 
@@ -26,7 +26,7 @@ export function validateURL(req: Request, res: Response, next: CallableFunction)
     });
     
   } catch(err) {
-    res.status(400).json(errRes);
+    res.json(errRes);
   }
 }
 
@@ -35,7 +35,7 @@ export function validateID(req: Request, res: Response, next: CallableFunction):
   const errRes = { error: "Wrong format" };
 
   if (id === undefined || typeof(id) !== "string") {
-    res.status(400).json(errRes);
+    res.json(errRes);
     return;
   }
 

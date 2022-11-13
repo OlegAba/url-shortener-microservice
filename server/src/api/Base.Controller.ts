@@ -38,7 +38,8 @@ export class BaseController {
       console.log(err);
     }
 
-    res.status(status).json({ error: message });
+    // res.status(status).json({ error: message });
+    res.json({ error: message })
   }
 
   /**
