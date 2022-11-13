@@ -43,7 +43,7 @@ export class ShorturlController extends BaseController {
       
       // URL does not exist
       if (doc === null) {
-        this.errRes(null, res, "No short URL found for the given input");
+        this.errRes(null, res, "No short URL found for the given input", 400);
         return;
       }
 
