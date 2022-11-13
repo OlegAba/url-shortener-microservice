@@ -1,18 +1,56 @@
 import { EndpointData, Method } from './components/endpoint/Endpoint.interface';
 
 export const dateEndpointData: EndpointData = {
-  name: 'whoami',
-  description: 'Returns a JSON object with an IP address, preferred language, and user-agent of a provided request',
+  name: 'shorturl',
+  description: 'Returns a JSON object with a compact ID of the original URL. Input the ID as a parameter to redirect to the original URL',
   methodsData: [
     {
-      method: Method.GET,
-      endpoint: '/api/whoami',
-      params: [],
+      method: Method.POST,
+      endpoint: '/api/shorturl',
+      params: [
+        {
+          name: 'url',
+          type: 'string',
+          apiInterface: 'form-data',
+          description: 'A valid URL',
+          sampleInput: '{ \n  "url": "https://www.google.com"\n}'
+        }
+      ],
       codes: [
         {
           statusCode: 200,
           description: 'Successful operation',
-          sampleRes: '{ \n  "ipaddress": "152.171.47.142",\n  "language": "en-US,en;q=0.5",\n  "software": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0"\n}\n'
+          sampleRes: '{ \n  "original_url": "https://www.google.com",\n  "short_url": "4fc10e",\n}\n'
+        },
+        {
+          statusCode: 400,
+          description: 'Invalid URL provided',
+          sampleRes: '{ \n  "error": "invalid url"\n}'
+        }
+      ]
+    },
+    {
+      method: Method.GET,
+      endpoint: '/api/shorturl/{short_url}',
+      params: [
+        {
+          name: 'short_url',
+          type: 'string',
+          apiInterface: 'path',
+          description: 'A valid ID',
+          sampleInput: '/api/shorturl/4fc10e'
+        }
+      ],
+      codes: [
+        {
+          statusCode: 200,
+          description: 'Successful operation',
+          sampleRes: 'Redirect > https://www.google.com'
+        },
+        {
+          statusCode: 400,
+          description: 'Invalid ID provided',
+          sampleRes: '{ \n  "error": "No short URL found for the given input"\n}'
         }
       ]
     }
