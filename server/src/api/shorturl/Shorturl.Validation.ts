@@ -3,6 +3,7 @@ import dns from "dns";
 
 export function validateURL(req: Request, res: Response, next: CallableFunction): void {
   const url: string | undefined = req.body.url;
+
   const errRes = { error: "invalid url" };
 
   if (url === undefined || url === "") {
@@ -10,17 +11,23 @@ export function validateURL(req: Request, res: Response, next: CallableFunction)
     return;
   }
 
-  const baseURL = url.replace(/^https?:\/\//, '');
+  try {
+    const { hostname } = new URL(url);
 
-  dns.lookup(baseURL, (err) => {
-    if (err) {
-      res.status(500).json(errRes);
-      return;
-    }
+    dns.lookup(hostname, (err) => {
+      console.log(err)
+      if (err) {
+        res.status(500).json(errRes);
+        return;
+      }
 
-    res.locals.url = baseURL;
-    next();
-  });
+      res.locals.url = url;
+      next();
+    });
+    
+  } catch(err) {
+    res.status(500).json(errRes);
+  }
 }
 
 export function validateID(req: Request, res: Response, next: CallableFunction): void {
